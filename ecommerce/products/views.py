@@ -9,8 +9,13 @@ from products.models import Products
 class ProductsView(View):
 
     def get(self, request, *args, **kwargs):
-        producs_list = Products.objects.all()
-        paginator_list = Paginator(producs_list, 10) # Show 25 contacts per page.
+        search = request.GET.get('search',None)
+        if search != None:
+            producs_list = Products.objects.filter(name__contains=search)
+        else:
+            producs_list = Products.objects.all()
+
+        paginator_list = Paginator(producs_list, 15) # Show 25 contacts per page.
 
         page_number = request.GET.get('page')
         products_page = paginator_list.get_page(page_number)

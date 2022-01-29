@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-
+{% load static %}
 
 {% block content%}
 <div class="box ml-10">
@@ -49,7 +49,7 @@
           <a href="?page=1" class="bg-violet-500  inline-flex items-center py-2 px-4 text-sm font-medium text-white bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             first
           </a>
-          <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          <a id="anterior" href="?page={{ products_page.previous_page_number }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             Anterior
           </a>
       {% endif %}
@@ -59,7 +59,7 @@
       </span>
 
       {% if products_page.has_next %}
-      <a href="?page={{ products_page.next_page_number }}" class="inline-flex items-center py-2 px-4 ml-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      <a id="siguiente" href="?page={{ products_page.next_page_number }}" class="inline-flex items-center py-2 px-4 ml-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
         Siguiente
       </a>
       {% endif %}
@@ -70,3 +70,57 @@
 
 
 {% endblock %}
+
+
+{% block js %}
+<script>
+  var sig=document.getElementById("siguiente");
+  var ant=document.getElementById("anterior")
+  if(sig!=null){
+    
+    //siguiente pag
+    sig.addEventListener("click",(e)=>{
+
+    e.preventDefault();
+    atri_page_sig=sig.getAttribute("href")
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('search');
+
+    if(myParam != null || myParam == ""){
+      document.location.search = `${atri_page_sig}&search=${myParam}`;
+
+    }else{
+      document.location.search = `${atri_page_sig}`;
+    }
+
+    })
+
+  }
+
+
+  if(ant!=null){
+    
+    //siguiente pag
+    ant.addEventListener("click",(e)=>{
+
+    e.preventDefault();
+    atri_page_ant=ant.getAttribute("href")
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('search');
+
+    if(myParam != null || myParam == ""){
+      document.location.search = `${atri_page_ant}&search=${myParam}`;
+
+    }else{
+      document.location.search = `${atri_page_ant}`;
+    }
+
+    })
+
+  }
+  
+  </script>
+{% endblock %}
+
+
+
