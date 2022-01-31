@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import DetailView
 
 from products.models import Products
 
@@ -20,3 +21,7 @@ class ProductsView(View):
         page_number = request.GET.get('page')
         products_page = paginator_list.get_page(page_number)
         return  render(request, 'products/productslist.html', {'products_page':products_page})
+
+class DetailProducts(DetailView):
+    model=Products
+    template_name='products/detailproducts.html'
