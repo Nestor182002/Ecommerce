@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
+from django.http import Http404
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView
+from products.models import ProductsViewRecentList
 
 from products.models import Products
 
@@ -22,6 +23,29 @@ class ProductsView(View):
         products_page = paginator_list.get_page(page_number)
         return  render(request, 'products/productslist.html', {'products_page':products_page})
 
-class DetailProducts(DetailView):
-    model=Products
-    template_name='products/detailproducts.html'
+def DetailProducts(request,pk):
+    try:
+        Product_Detail = Products.objects.get(id=pk)
+
+        if request.user.is_authenticated:
+            users=request.user
+            if ProductsViewRecentList.objects.filter(recent_user=users,recent_product=Product_Detail,active=True).exists():
+                products=ProductsViewRecentList.objects.get(recent_user=users,recent_product=Product_Detail,active=True)
+                products.delete()
+                ProductsViewRecentList.objects.create(
+                recent_user=users,
+                recent_product=Product_Detail,
+                )
+            else:
+                ProductsViewRecentList.objects.create(
+                recent_user=users,
+                recent_product=Product_Detail,
+                )
+
+    except Products.DoesNotExist:
+        raise Http404("Products does not exist")
+    return render(request, 'products/detailproducts.html', {'object': Product_Detail})
+
+# class DetailProducts(DetailView):
+#     model=Products
+#     template_name='products/detailproducts.html'

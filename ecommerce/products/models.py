@@ -12,7 +12,7 @@ class Products(models.Model):
     active=models.BooleanField(default=True)
 
     def __str__(self):
-        return self.pk
+        return self.name
 
 
 
@@ -22,4 +22,4 @@ class ProductsViewRecentList(models.Model):
     active=models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.recent_user}--{self.recent_product}"
+        return f"{self.pk}"
