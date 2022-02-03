@@ -46,6 +46,9 @@ def DetailProducts(request,pk):
         raise Http404("Products does not exist")
     return render(request, 'products/detailproducts.html', {'object': Product_Detail})
 
-# class DetailProducts(DetailView):
-#     model=Products
-#     template_name='products/detailproducts.html'
+class RecentViewProduct(View):
+
+    def get(self, request, *args, **kwargs):
+        user=request.user
+        recent=ProductsViewRecentList.objects.filter(recent_user=user,active=True)
+        return render(request, 'products/recentproducts.html', {'recents': recent})
