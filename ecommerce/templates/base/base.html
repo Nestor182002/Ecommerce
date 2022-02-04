@@ -107,6 +107,7 @@
                 </a>
               </li>
               {% endif %}
+              {% if request.user.is_authenticated  %}
               <li class="rounded-sm ">
                 <a href="{% url 'recent' %}" class="flex items-center p-2 space-x-3 rounded-md">
                   <svg class="h-8 w-5 text-red-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,6 +118,7 @@
                   <span class="font-semibold">Vistas Recientes</span>
                 </a>
               </li>
+              {% endif %}
               {% if request.user.is_authenticated  %}
               <li class="rounded-sm">
                 <a href="#" class="flex items-center p-2 space-x-3 rounded-md">
@@ -130,7 +132,7 @@
                     ></path>
                     <rect width="32" height="64" x="256" y="232"></rect>
                   </svg>
-                  <span class="font-semibold">logout</span>
+                  <span class="font-semibold">Logout</span>
                 </a>
               </li>
                 {% else %}
@@ -140,7 +142,7 @@
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
-                      class="w-5 h-5 fill-current text-violet-500"
+                      class="w-5 h-5 fill-current text-red-500"
                     >
                       <path
                         d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"
