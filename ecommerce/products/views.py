@@ -1,7 +1,9 @@
+from tempfile import template
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView
 from products.models import ProductsViewRecentList
 
 from products.models import Products
@@ -51,4 +53,10 @@ class RecentViewProduct(View):
     def get(self, request, *args, **kwargs):
         user=request.user
         recent=ProductsViewRecentList.objects.filter(recent_user=user,active=True)
-        return render(request, 'products/recentproducts.html', {'recents': recent})
+        return render(request,'products/recentproducts.html', {'recents': recent})
+
+
+class ListCategoryProducts(ListView):
+    model = Products
+    template_name='category/list_category.html'
+    fields = ['pk',]

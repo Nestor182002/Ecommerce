@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+
   {% block title %}
   <title>Inicio</title>
   {% endblock %}
@@ -37,9 +42,9 @@
     <div class="flex buscador flex-row">
 
     <div class=" relative mr-3 md:mr-0 md:block border-b border-violet-500">
-      <input id="email-adress-icon" class="appearance-none bg-transparent border-none w-full text-slate-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder-violet-500 font-semibold" type="text" placeholder="Buscar..." aria-label="buscar">
+      <input id="email-adress-icon" class="appearance-none bg-transparent border-none w-full text-slate-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder-violet-500 font-extrabold text-xs" type="text" placeholder="Buscar..." aria-label="buscar" style="font-family:Roboto">
     </div>
-    <button class="text-violet-500 ml-3 font-semibold" id="buscar">
+    <button class="text-violet-500 ml-3 font-semibold text-base" id="buscar">
       Buscar
     </button>
 
