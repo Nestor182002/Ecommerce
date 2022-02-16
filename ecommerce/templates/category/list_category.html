@@ -13,37 +13,113 @@
                 <div class="bg-white px-4 md:px-8 xl:px-10">
                     <div class="sm:flex items-center justify-between">
                         <div class="flex items-center">
-                            <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800" href=" javascript:void(0)">
+                            <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800" href="?cate=">
                                 <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
                                     <p>All</p>
                                 </div>
                             </a>
-                            <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" href="javascript:void(0)">
+                            <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" href="?cate=t">
                                 <div class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full ">
-                                    <p>Recientes</p>
+                                    <p>Hoy</p>
+                                </div>
+                            </a>
+                            <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" href="?cate=s">
+                                <div class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full ">
+                                    <p>Esta semana</p>
+                                </div>
+                            </a>
+                            <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" href="?cate=v">
+                                <div class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full ">
+                                    <p>Mas vistos</p>
                                 </div>
                             </a>
                         </div>
-                        <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
-                            <p>Categorias</p>
-                            <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1">
-                                <option class="text-sm text-indigo-800">Latest</option>
-                                <option class="text-sm text-indigo-800">Oldest</option>
-                                <option class="text-sm text-indigo-800">Latest</option>
-                                
+                        <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 cursor-pointer rounded">
+                            <select id="ordering" aria-label="select" class=" focus:text-indigo-600 focus:outline-none bg-transparent ml-1">
+                                <option id="op_1" class="text-sm text-indigo-800" value="Asc">Ascendente</option>
+                                <option id="op_2" class="text-sm text-indigo-800" value="Des">Descendente</option>
                             </select>
+                            <button id="btn" aria-label="select" class="bg-violet-500 p-2 ml-1 text-white rounded-lg">
+                                Ordenar
+                            </button>
                         </div>
                     </div>
-                    <div class="text-center w-full">
-                        {% for cate_products in object_list %}
-                        {{cate_products.name}}
+                    <!-- <div class="text-center w-full">
+                        {% for cate_products in products_list %}
+                        <div>
+                            {{cate_products.pk}}
+                            {{cate_products.name}}
+                            ---{{cate_products.created}}
+                        </div>
                         {% endfor %}
+                    </div> -->
+                    <div class="mt-6">
+                        {% for products in products_list %}
+            
+                        <div class=" bg-white rounded-lg border shadow-md m-4 dark:bg-gray-800 dark:border-gray-700 w-full">
+            
+                         <div class="flow-root">
+                           <a href="{% url 'detail_products' products.id %}">
+                              <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                  <li class="py-3 sm:py-4">
+                                      <div class="flex items-center space-x-4">
+                                          <div class="">
+                                              <img class="w-60 h-50 object-cover ml-2" src="{{products.img.url}}" alt="Products">
+                                          </div>
+                                          <div class="flex-1 min-w-0">
+                                            <h3 class="text-violet-800 pb-4 text-xl font-medium  leading-none dark:text-white">{{products.name}}</h3>
+                                              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                  disponible:
+                                                  {% if products.active == True %}
+                                                  activo
+                                                  {% else %}
+                                                  no disponible
+                                                  {% endif %}
+                                              </p>
+                                              <p class="text-sm text-gray-500 truncate text-gray-400">
+                                                  cantidad: <span>{{products.quantity}}</span>
+                                              </p>
+                                          </div>
+                                          <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white p-4">
+                                              $ {{products.price}}
+                                          </div>
+                                      </div>
+                                  </li>  
+                              </ul>
+                            </a>
+                         </div>
+                      </div>
+            
+            
+                        {% empty %}
+            
+                        <li>no hay productos disponibles.</li>
+                        {% endfor %}
+                  
+                        <!-- More products... -->
+            
+                      </div>
                     </div>
-                    </div>
-
-
-
 
 </div>
+
+<script>
+let ordering= document.getElementById("ordering");
+let button= document.getElementById("btn");
+button.addEventListener('click',()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    let myParam = urlParams.get('cate');
+    if (myParam == null){
+        myParam=""
+    }
+
+    if(myParam != null || myParam == ""){
+      document.location.search = `cate=${myParam}&ordering=${ordering.value}`;
+    }else{
+      document.location.search =  `cate=${myParam}&ordering=${ordering.value}`;
+    }
+
+})
+</script>
 
 {% endblock %}
