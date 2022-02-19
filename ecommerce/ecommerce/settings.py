@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #local_app
     'products',
     'orders',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -137,4 +138,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# control timezone
 USE_TZ = False
+
+# login redirect
+LOGIN_REDIRECT_URL = '/inicio'

@@ -4,7 +4,7 @@ from products.models import Products, ProductsViewRecentList,Category
 # Register your models here.
 class ProductsAdmin(admin.ModelAdmin):
     list_display= ('name','price','quantity','created','active')
-    list_filter = ('price',)
+    list_filter = ('price','active')
     search_fields = ['name', 'price',]
     
 

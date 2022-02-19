@@ -2,6 +2,16 @@
   <title>Register</title>
   {% endblock %}
 
+<div>
 
+  <form method="post">
+    {% csrf_token %}
+    {{forms.as_p}}
+    <button type="submit">Registrarme</button>
+  </form>
+
+</div>
+
+  
   {% block content %}
   {% endblock %}

@@ -9,6 +9,8 @@ from django.utils import timezone
 # models
 from products.models import ProductsViewRecentList
 from products.models import Products
+# forms
+
 
 # Create your views here.
 
@@ -67,7 +69,7 @@ class ListCategoryProducts(View):
         elif ordering == 'Des':
             ordering='-id'
         else:
-            ordering("id")
+            ordering='id'
 
         # obtain day and week
         today = datetime.date.today()
