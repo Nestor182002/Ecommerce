@@ -143,3 +143,4 @@ USE_TZ = False
 
 # login redirect
 LOGIN_REDIRECT_URL = '/inicio'
+LOGOUT_REDIRECT_URL = '/inicio'

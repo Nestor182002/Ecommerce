@@ -24,7 +24,7 @@
       #translate{
           transition: 1s;
           z-index: 1;
-          left: -195px;
+          left: -300px;
       }
 
   </style>
@@ -33,10 +33,21 @@
 </head>
 <body>
   <!--nav-->
-  <nav class="flex items-center justify-between  bg-gray-100 p-3 absolute w-full border-b border-violet-300">
+  <nav class="flex items-center justify-between  bg-white p-3 fixed w-full border-b border-violet-300">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-      <span class="font-semibold text-xl tracking-tight text-2xl text-slate-800	">TecnoPay</span>
+      <button class="p-2" id="button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          class="w-5 h-5 fill-current text-black font-extrabold"
+        >
+          <rect width="702" height="55" x="100" y="96"></rect>
+          <rect width="702" height="55" x="100" y="240"></rect>
+          <rect width="702" height="55" x="100" y="384"></rect>
+        </svg>
+      </button>
+      <span class=" ml-5 font-semibold text-xl tracking-tight text-2xl text-violet-800	">TecnoPay</span>
+      
     </div>
 
     <div class="flex buscador flex-row">
@@ -45,7 +56,8 @@
       <input id="email-adress-icon" class="appearance-none bg-transparent border-none w-full text-slate-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder-violet-500 font-extrabold text-xs" type="text" placeholder="Buscar..." aria-label="buscar" style="font-family:Roboto">
     </div>
     <button class="text-violet-500 ml-3 font-semibold text-base" id="buscar">
-      Buscar
+      <svg class="h-5 w-5 text-purple-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/> 
+         <circle cx="10" cy="10" r="7" />  <line x1="21" y1="21" x2="15" y2="15" /></svg>
     </button>
 
     </div>
@@ -53,31 +65,26 @@
   </nav>
     
   <!--side bar-->
-    <div class="flex flex-col h-screen p-3 w-60 bg-slate-900	 text-white-800 text-white fixed" id="translate">
+    <div class="flex flex-col h-screen p-3 w-60 bg-white text-black fixed shadow-2xl border-r-2 border-indigo-600" id="translate">
         <div class="space-y-3 border-white">
           <div class="flex items-center justify-between  ">
-            <h2 class="text-white font-semibold text-base">Settings</h2>
-            <button class="p-2" id="button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                class="w-5 h-5 fill-current text-white"
-              >
-                <rect width="352" height="32" x="80" y="96"></rect>
-                <rect width="352" height="32" x="80" y="240"></rect>
-                <rect width="352" height="32" x="80" y="384"></rect>
-              </svg>
+            <h2 class="text-black font-semibold text-base">Configuraciones</h2>
+            <button>
+              <svg id="cerrar" class="h-6 w-6 text-red-500 "  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
+                 <path stroke="none" d="M0 0h24v24H0z"/>  
+                <circle cx="12" cy="12" r="9" />  <path d="M10 10l4 4m0 -4l-4 4" /></svg>
             </button>
+            
           </div>
-
-          <div class="flex-1 close ">
-            <ul class="pt-2 pb-4 space-y-1 text-sm">
+          <hr>
+          <div class="flex-1 close">
+            <ul class="pb-4 space-y-1 text-sm">
               <li class="rounded-sm">
-                <a href="{% url 'products' %}" class="flex items-center p-2 space-x-3 rounded-md">
+                <a href="{% url 'products' %}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    class="w-5 h-5 fill-current text-red-500"
+                    class="w-5 h-5 fill-current text-indigo-500"
                   >
                     <path
                       d="M469.666,216.45,271.078,33.749a34,34,0,0,0-47.062.98L41.373,217.373,32,226.745V496H208V328h96V496H480V225.958ZM248.038,56.771c.282,0,.108.061-.013.18C247.9,56.832,247.756,56.771,248.038,56.771ZM448,464H336V328a32,32,0,0,0-32-32H208a32,32,0,0,0-32,32V464H64V240L248.038,57.356c.013-.012.014-.023.024-.035L448,240Z"
@@ -86,16 +93,17 @@
                   <span class="font-semibold">Inicio</span>
                 </a>
               </li>
-              <li class="rounded-sm">
-                <a href="#" class="flex items-center p-2 space-x-3 rounded-md">
-                  <svg class="h-8 w-5 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="19" r="2" />  <circle cx="17" cy="19" r="2" />  <path d="M3 3h2l2 12a3 3 0 0 0 3 2h7a3 3 0 0 0 3 -2l1 -7h-15.2" /></svg>
-
+              <hr>
+              <li class="rounded-sm mt-2">
+                <a href="#" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
+                  <svg class="h-8 w-5 text-indigo-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="19" r="2" />  <circle cx="17" cy="19" r="2" />
+                      <path d="M3 3h2l2 12a3 3 0 0 0 3 2h7a3 3 0 0 0 3 -2l1 -7h-15.2" /></svg>
                   <span class="font-semibold">Carrito</span>
                 </a>
               </li>
-              <li class="rounded-sm">
-                <a href="{% url 'category' %}" class="flex items-center p-2 space-x-3 rounded-md">
-                  <svg class="h-8 w-5 text-red-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <li class="rounded-sm mt-2">
+                <a href="{% url 'category' %}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
+                  <svg class="h-8 w-5 text-indigo-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
                   </svg>
                   
@@ -103,9 +111,9 @@
                 </a>
               </li>
               {% if request.user.is_authenticated  %}
-              <li class="rounded-sm">
-                <a href="#" class="flex items-center p-2 space-x-3 rounded-md">
-                  <svg class="h-8 w-5 text-red-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <li class="rounded-sm mt-2">
+                <a href="#" class="flex items-center p-2 space-x-3 rounded-md mt-2 hover:bg-slate-200">
+                  <svg class="h-8 w-5 text-indigo-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                   <span class="font-semibold">Compras</span>
@@ -114,8 +122,8 @@
               {% endif %}
               {% if request.user.is_authenticated  %}
               <li class="rounded-sm ">
-                <a href="{% url 'recent' %}" class="flex items-center p-2 space-x-3 rounded-md">
-                  <svg class="h-8 w-5 text-red-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="{% url 'recent' %}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
+                  <svg class="h-8 w-5 text-indigo-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                   </svg>
@@ -126,11 +134,11 @@
               {% endif %}
               {% if request.user.is_authenticated  %}
               <li class="rounded-sm">
-                <a href="#" class="flex items-center p-2 space-x-3 rounded-md">
+                <a href="{% url 'logout' %}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    class="w-5 h-5 fill-current text-red-500"
+                    class="w-5 h-5 fill-current text-indigo-500"
                   >
                     <path
                       d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"
@@ -143,37 +151,37 @@
                 {% else %}
 
                 <li class="rounded-sm">
-                  <a href="{% url 'login' %}" class="flex items-center p-2 space-x-3 rounded-md">
+                  <a href="{% url 'login' %}" class="flex items-center p-2 space-x-3 rounded-md bg-blue-500 hover:bg-blue-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
-                      class="w-5 h-5 fill-current text-red-500"
+                      class="w-5 h-5 fill-current text-white"
                     >
                       <path
                         d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"
                       ></path>
                       <rect width="32" height="64" x="256" y="232"></rect>
                     </svg>
-                    <span class="font-semibold">Login</span>
+                    <span class="font-semibold text-white">Login</span>
                   </a>
                 </li>
 
+                <li class="rounded-sm">
+                  <a href="{% url 'register' %}" class=" mt-2 flex items-center p-2 space-x-3 rounded-md bg-green-500 hover:bg-green-700">
+                    <svg class="h-4 w-4 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  
+                      <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    <span class="font-semibold text-white">Registrarme</span>
+                  </a>
+                </li>
 
                 {% endif %}
             </ul>
           </div>
         </div>
         <div class="close flex items-center p-2 mt-12 space-x-4 justify-self-end ">
-          <img
-            src="https://source.unsplash.com/100x100/?portrait"
-            alt=""
-            class="w-12 h-12 rounded-lg"
-          />
           <div>
             {% if request.user.is_authenticated  %}
             <h2 class="text-lg font-semibold">{{request.user}}</h2>
-            {% else %}
-            <h2 class="text-lg font-semibold">Hello user :D</h2>
             {% endif  %}
           </div>
         </div>
@@ -186,13 +194,24 @@
 
 
     <script>
-        button=document.getElementById("button")
+        button=document.getElementById("button");
+        cerrar=document.getElementById("cerrar")
         let desliz=document.getElementById("translate")
         var bool=false
 
         button.addEventListener("click",()=>{
             if(bool == true){
             desliz.style.left ="-195px"
+            bool=false
+            }else{
+            desliz.style.left ="0px"
+            bool=true
+            }
+
+        })
+        cerrar.addEventListener("click",()=>{
+            if(bool == true){
+            desliz.style.left ="-300px"
             bool=false
             }else{
             desliz.style.left ="0px"
