@@ -5,17 +5,47 @@
 
 <div class="sm:px-6 w-full">
     <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-                <div class="px-2 md:px-10 py-2 md:py-16">
-                    <div class="flex items-center justify-between">
-                        <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold leading-normal text-gray-800" style="font-family:roboto;">Categorias</p>
+
+                <div class="bg-white md:px-8 xl:px-20 pt-20 ">
+
+                    <div class="px-2 pb-6 flex w-full justify-between relative">
+                        <div class="flex items-center justify-between">
+                            <p tabindex="0" class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-medium leading-normal text-gray-800 font-mono" >Categorias</p>
+                        </div>
+
+                        <div class="flex justify-center  border border-solid border-gray-300 absolute right-0 bg-white">
+                           
+                            <div class="select-content" >
+                                <input type="text" class="hidden border" id="search_cate">
+                                    <select id="category" class="form-select appearance-none   
+                                      block
+                                      p-2 
+                                      text-base
+                                      font-normal
+                                      text-gray-700
+                                      bg-clip-padding bg-no-repeat
+                                      rounded
+                                      transition
+                                      ease-in-out
+                                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                                        <option selected>Seleccionar Categoria</option>
+                                        {% for cate in categorys %}
+                                        <option class="optionvalue" name="cate" value={{cate.id}}>{{cate.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                
+
+                                
+                            </div>
+                            <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg>
+                          </div>
                     </div>
-                </div>
-                <div class="bg-white px-4 md:px-8 xl:px-10">
-                    <div class="sm:flex items-center justify-between">
+
+                    <div class="sm:flex items-center justify-between font-sans">
                         <div class="flex items-center">
                             <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800" href="?cate=">
-                                <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                                    <p>All</p>
+                                <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full ">
+                                    <p >All</p>
                                 </div>
                             </a>
                             <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" href="?cate=t">
@@ -33,6 +63,7 @@
                                     <p>Mas vistos</p>
                                 </div>
                             </a>
+                            
                         </div>
                         <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 cursor-pointer rounded">
                             <select id="ordering" aria-label="select" class=" focus:text-indigo-600 focus:outline-none bg-transparent ml-1">
@@ -43,16 +74,9 @@
                                 Ordenar
                             </button>
                         </div>
+
                     </div>
-                    <!-- <div class="text-center w-full">
-                        {% for cate_products in products_list %}
-                        <div>
-                            {{cate_products.pk}}
-                            {{cate_products.name}}
-                            ---{{cate_products.created}}
-                        </div>
-                        {% endfor %}
-                    </div> -->
+                    
                     <div class="mt-6">
                         {% for products in products_list %}
             
@@ -104,22 +128,95 @@
 </div>
 
 <script>
+// categorys for days
 let ordering= document.getElementById("ordering");
 let button= document.getElementById("btn");
+
 button.addEventListener('click',()=>{
     const urlParams = new URLSearchParams(window.location.search);
-    let myParam = urlParams.get('cate');
-    if (myParam == null){
-        myParam=""
+    let fordays = urlParams.get('cate');
+    if (fordays == null){
+        fordays=""
     }
 
-    if(myParam != null || myParam == ""){
-      document.location.search = `cate=${myParam}&ordering=${ordering.value}`;
+    if(fordays != null || fordays == ""){
+      document.location.search = `cate=${fordays}&ordering=${ordering.value}`;
     }else{
-      document.location.search =  `cate=${myParam}&ordering=${ordering.value}`;
+      document.location.search =  `cate=${fordays}&ordering=${ordering.value}`;
     }
 
 })
+
+// for doing the search of categorys and verify if a mobile
+var touchDevice = ('ontouchstart' in document.documentElement);
+let filter=document.getElementById('category');
+let searchCate=document.getElementById('search_cate');
+let nameCate=document.getElementsByName('cate');
+const arr = [];
+// if a mobile?
+if(touchDevice == true){
+    filter.addEventListener('click',(e)=>{
+        if(isNaN(filter.value) == false){
+            alert('busqueda')
+        }
+    })
+}
+//it is not a mobile
+else{
+
+    filter.addEventListener('mouseover',(e)=>{
+        // size hace que se abra el select
+        filter.size=filter.length;
+        searchCate.style.display='block';
+        filter.style.overflow='hidden';
+    })
+    filter.addEventListener('mouseout',(e)=>{
+        filter.size=0;
+        searchCate.style.display='none';
+    })
+    searchCate.addEventListener('mouseout',(e)=>{
+        filter.size=0;
+        searchCate.style.display='none';
+    })
+    
+    // painting category data
+    for (var item of nameCate) {
+        arr.push(item.innerHTML)
+    }
+    // primero recorro el array y por cada elemento del array.
+    // se recorren todos los elementos de las categorias del html->osea el segundo for.
+    // y se valida si el name es similar a la busqueda con indexof.
+    //luego si name == al elemento html lo muestra. 
+    // de lo contrario lo quita
+    searchCate.addEventListener('keyup',(e)=>{
+        SearchValue=e.target.value;
+        
+            for (var name of arr) {
+                
+                for (var paintD of nameCate) {
+
+                    if (name.indexOf(SearchValue) !== -1){  
+                        if(name == paintD.textContent){
+                        paintD.style.display="block"
+                        }
+                    }
+                    else{
+                        if(name == paintD.textContent){
+                        paintD.style.display="none"
+                        }
+                    }
+
+                }
+    
+            }
+
+    })
+
+// endif
+}
+
+
+
 </script>
 
 {% endblock %}

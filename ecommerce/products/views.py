@@ -5,10 +5,8 @@ from django.shortcuts import render
 from django.views import View
 # dates
 import datetime
-from django.utils import timezone
 # models
-from products.models import ProductsViewRecentList
-from products.models import Products
+from products.models import Products,Category,ProductsViewRecentList
 # forms
 
 
@@ -85,4 +83,9 @@ class ListCategoryProducts(View):
         else:
             products_filter=Products.objects.all().all().order_by(ordering)
 
-        return render(request,'category/list_category.html', {'products_list': products_filter})
+        context={
+            'products_list': products_filter,
+            'categorys':Category.objects.all()
+        }
+
+        return render(request,'category/list_category.html', context)
