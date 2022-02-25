@@ -28,7 +28,7 @@
                                       transition
                                       ease-in-out
                                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                        <option selected>Seleccionar Categoria</option>
+                                        <option selected value="-1">Seleccionar Categoria</option>
                                         {% for cate in categorys %}
                                         <option class="optionvalue" name="cate" value={{cate.id}}>{{cate.name}}</option>
                                         {% endfor %}
@@ -163,7 +163,7 @@ if(touchDevice == true){
 }
 //it is not a mobile
 else{
-
+    // events select
     filter.addEventListener('mouseover',(e)=>{
         // size hace que se abra el select
         filter.size=filter.length;
@@ -178,7 +178,25 @@ else{
         filter.size=0;
         searchCate.style.display='none';
     })
-    
+    filter.addEventListener('click',(e)=>{
+        // click category
+        let filterValue=filter.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        let fordays = urlParams.get('cate');
+        let orderingD = urlParams.get('ordering');
+            if (fordays == null){
+                fordays=""
+            }
+            if (orderingD == null){
+                orderingD=""
+            }
+            if(fordays != null || fordays == ""){
+            document.location.search = `cate=${fordays}&ordering=${orderingD}&c=${filterValue}`;
+            }else{
+            document.location.search =  `cate=${fordays}&ordering=${orderingD}&c=${filterValue}`;
+            }
+    })
+
     // painting category data
     for (var item of nameCate) {
         arr.push(item.innerHTML)

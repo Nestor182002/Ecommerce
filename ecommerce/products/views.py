@@ -19,9 +19,9 @@ class ProductsView(View):
         if search != None:
             producs_list = Products.objects.filter(name__contains=search)
         else:
-            producs_list = Products.objects.all()
+            producs_list = Products.objects.all().order_by('-id')
 
-        paginator_list = Paginator(producs_list, 15) # Show 15 products per page.
+        paginator_list = Paginator(producs_list, 5) # Show 15 products per page.
         page_number = request.GET.get('page')
         products_page = paginator_list.get_page(page_number)
         return  render(request, 'products/productslist.html', {'products_page':products_page})
@@ -61,6 +61,7 @@ class ListCategoryProducts(View):
     def get(self, request, *args, **kwargs):
         data_cate=request.GET.get('cate',None)
         ordering=request.GET.get('ordering',None)
+        category= request.GET.get('c',None)
         #ordering  
         if ordering == 'Asc':
             ordering='id'
@@ -68,6 +69,13 @@ class ListCategoryProducts(View):
             ordering='-id'
         else:
             ordering='id'
+        # category
+        if category != "":
+            if Category.objects.filter(id=category).exists() != True:
+                category=Category.objects.all()
+                print(category)
+        else:
+            category=Category.objects.all()
 
         # obtain day and week
         today = datetime.date.today()
@@ -77,11 +85,11 @@ class ListCategoryProducts(View):
         products_filter=Products.objects.all()
         if data_cate != (None or ""):
             if data_cate == 't':
-                products_filter=Products.objects.filter(created__day=today.day,created__month=today.month).order_by(ordering)
+                products_filter=Products.objects.filter(created__day=today.day,created__month=today.month,categorys__in=category).order_by(ordering)
             elif data_cate == 's':
-                products_filter=Products.objects.filter(created__gte=start_week,created__lte=end_week).order_by(ordering)
+                products_filter=Products.objects.filter(created__gte=start_week,created__lte=end_week,categorys__in=category).order_by(ordering)
         else:
-            products_filter=Products.objects.all().all().order_by(ordering)
+            products_filter=Products.objects.filter(categorys__in=category).order_by(ordering)
 
         context={
             'products_list': products_filter,
