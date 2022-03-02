@@ -1,3 +1,4 @@
+from msilib.schema import Class
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -32,12 +33,22 @@ class Products(InheritedData):
         return self.name
 
 class ProductsViewRecentList(InheritedData):
-    recent_user=models.ForeignKey(User,related_name='products_recent', on_delete=models.CASCADE,null=True,blank=True)
+    recent_user=models.ForeignKey(User,related_name='products_recent', on_delete=models.CASCADE)
     recent_product=models.ForeignKey(Products,related_name='products_recent', on_delete=models.CASCADE)
     active=models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.pk}"
+
+    class Meta:
+        ordering = ['-pk']
+
+class ProductsFavorite(InheritedData):
+    favorite_user=models.ForeignKey(User,related_name='products_favorite', on_delete=models.CASCADE)
+    favorite_product=models.ForeignKey(Products,related_name='products_favorite', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.pk}-"
 
     class Meta:
         ordering = ['-pk']

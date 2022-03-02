@@ -1,5 +1,5 @@
 from django.contrib import admin
-from products.models import Products, ProductsViewRecentList,Category
+from products.models import Products, ProductsViewRecentList,Category,ProductsFavorite
 
 # Register your models here.
 class ProductsAdmin(admin.ModelAdmin):
@@ -11,4 +11,6 @@ class ProductsAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Products,ProductsAdmin)
 admin.site.register(ProductsViewRecentList)
+admin.site.register(ProductsFavorite)
+
 

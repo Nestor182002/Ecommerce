@@ -101,6 +101,14 @@
                   <span class="font-semibold">Carrito</span>
                 </a>
               </li>
+              {% if request.user.is_authenticated  %}
+              <li class="rounded-sm mt-2">
+                <a href="#" class="flex items-center p-2 space-x-3 rounded-md mt-2 hover:bg-slate-200">
+                  <svg class="h-8 w-5 text-indigo-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" /></svg>
+                  <span class="font-semibold">Favoritos</span>
+                </a>
+              </li>
+              {% endif %}
               <li class="rounded-sm mt-2">
                 <a href="{% url 'category' %}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-slate-200">
                   <svg class="h-8 w-5 text-indigo-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -59,41 +59,51 @@ class RecentViewProduct(View):
 class ListCategoryProducts(View):
     '''filter of products category'''
     def get(self, request, *args, **kwargs):
-        data_cate=request.GET.get('cate',None)
-        ordering=request.GET.get('ordering',None)
-        category= request.GET.get('c',None)
-        #ordering  
-        if ordering == 'Asc':
-            ordering='id'
-        elif ordering == 'Des':
-            ordering='-id'
-        else:
-            ordering='id'
-        # category
-        if category != "":
-            if Category.objects.filter(id=category).exists() != True:
+        search = request.GET.get('search',None)
+        print(search    )
+        if search == None:
+            data_cate=request.GET.get('cate',None)
+            ordering=request.GET.get('ordering',None)
+            category= request.GET.get('c',None)
+            #ordering  
+            if ordering == 'Asc':
+                ordering='id'
+            elif ordering == 'Des':
+                ordering='-id'
+            else:
+                ordering='id'
+            # category
+            if category != "":
+                if Category.objects.filter(id=category).exists() != True:
+                    category=Category.objects.all()
+            else:
                 category=Category.objects.all()
-                print(category)
+
+            # obtain day and week
+            today = datetime.date.today()
+            start_week = today - datetime.timedelta(today.weekday())
+            end_week = start_week + datetime.timedelta(7)
+            # t=today,s=week,v=more views
+            products_filter=Products.objects.all()
+            if data_cate != (None or ""):
+                if data_cate == 't':
+                    products_filter=Products.objects.filter(created__day=today.day,created__month=today.month,categorys__in=category).order_by(ordering)
+                elif data_cate == 's':
+                    products_filter=Products.objects.filter(created__gte=start_week,created__lte=end_week,categorys__in=category).order_by(ordering)
+            else:
+                products_filter=Products.objects.filter(categorys__in=category).order_by(ordering)
+
+            context={
+                'products_list': products_filter,
+                'categorys':Category.objects.all()
+            }
+
+            return render(request,'category/list_category.html', context)
         else:
-            category=Category.objects.all()
+            producs_list = Products.objects.filter(name__contains=search).order_by('-id')
 
-        # obtain day and week
-        today = datetime.date.today()
-        start_week = today - datetime.timedelta(today.weekday())
-        end_week = start_week + datetime.timedelta(7)
-        # t=today,s=week,v=more views
-        products_filter=Products.objects.all()
-        if data_cate != (None or ""):
-            if data_cate == 't':
-                products_filter=Products.objects.filter(created__day=today.day,created__month=today.month,categorys__in=category).order_by(ordering)
-            elif data_cate == 's':
-                products_filter=Products.objects.filter(created__gte=start_week,created__lte=end_week,categorys__in=category).order_by(ordering)
-        else:
-            products_filter=Products.objects.filter(categorys__in=category).order_by(ordering)
-
-        context={
-            'products_list': products_filter,
-            'categorys':Category.objects.all()
-        }
-
-        return render(request,'category/list_category.html', context)
+            context={
+                'products_list': producs_list,
+                'categorys':Category.objects.all()
+            }
+            return  render(request,'category/list_category.html',context)
