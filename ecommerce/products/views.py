@@ -1,12 +1,12 @@
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponse
 # views
 from django.shortcuts import render
 from django.views import View
 # dates
 import datetime
 # models
-from products.models import Products,Category,ProductsViewRecentList
+from products.models import Products,Category,ProductsViewRecentList,ProductsFavorite
 # forms
 
 
@@ -44,10 +44,13 @@ def DetailProducts(request,pk):
                 recent_user=users,
                 recent_product=Product_Detail,
                 )
-                
+        context={
+            'favorites':ProductsFavorite.objects.all(),
+            'object': Product_Detail,
+        }
     except Products.DoesNotExist:
         raise Http404("Products does not exist")
-    return render(request, 'products/detailproducts.html', {'object': Product_Detail})
+    return render(request, 'products/detailproducts.html',context)
 
 
 class RecentViewProduct(View):
@@ -95,7 +98,7 @@ class ListCategoryProducts(View):
 
             context={
                 'products_list': products_filter,
-                'categorys':Category.objects.all()
+                'categorys':Category.objects.all(),
             }
 
             return render(request,'category/list_category.html', context)
@@ -107,3 +110,7 @@ class ListCategoryProducts(View):
                 'categorys':Category.objects.all()
             }
             return  render(request,'category/list_category.html',context)
+
+def FavoriteProductPost(request,pk):
+    print(pk)
+    return HttpResponse("prueba")
