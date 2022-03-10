@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 # views
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
 # dates
 import datetime
@@ -112,5 +113,18 @@ class ListCategoryProducts(View):
             return  render(request,'category/list_category.html',context)
 
 def FavoriteProductPost(request,pk):
-    print(pk)
-    return HttpResponse("prueba")
+    ProductsF=Products.objects.get(pk=pk)
+    BoolFav=False
+    FavExist=ProductsFavorite.objects.filter(favorite_product=ProductsF,favorite_user=request.user)
+    if request.user.is_authenticated:
+        if FavExist.exists():
+            BoolFav=True
+        if BoolFav == False:
+            ProductsFavorite.objects.create(favorite_user=request.user,favorite_product=ProductsF)
+            return redirect(reverse('detail_products',args=[ProductsF.pk]))
+        else:
+            FavExist.delete()
+            return redirect(reverse('detail_products',args=[ProductsF.pk]))
+    else:
+        return redirect('/')
+    

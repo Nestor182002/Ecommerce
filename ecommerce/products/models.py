@@ -48,7 +48,7 @@ class ProductsFavorite(InheritedData):
     favorite_product=models.ForeignKey(Products,related_name='products_favorite', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.pk}-"
+        return f"{self.pk}"
 
     class Meta:
         ordering = ['-pk']
