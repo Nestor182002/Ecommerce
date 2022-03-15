@@ -8,7 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class ProductsAdmin(admin.ModelAdmin):
-    list_display= ('name','price','quantity','created','active')
+    list_display= ('pk','name','price','quantity','created','active')
     list_filter = ('categorys','price','active')
     search_fields = ['name', 'price',]
 

@@ -45,8 +45,12 @@ def DetailProducts(request,pk):
                 recent_user=users,
                 recent_product=Product_Detail,
                 )
+        if request.user.is_authenticated:
+            product_favorite=ProductsFavorite.objects.filter(favorite_user=request.user,favorite_product=Product_Detail)
+        else:
+            product_favorite=[]
         context={
-            'favorites':ProductsFavorite.objects.all(),
+            'favorites':product_favorite,
             'object': Product_Detail,
         }
     except Products.DoesNotExist:
@@ -128,3 +132,13 @@ def FavoriteProductPost(request,pk):
     else:
         return redirect('/')
     
+class FavoriteProductPage(View):
+
+    def get(self, request, *args, **kwargs):
+        product_favorite=ProductsFavorite.objects.filter(favorite_user=request.user)
+        context={
+            'list_favorite':product_favorite,
+        }
+        return  render(request,'products/FavoriteProducts.html',context)
+    def delete(self, request, *args, **kwargs):
+        pass

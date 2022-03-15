@@ -13,14 +13,14 @@
                 <spanc class="text-gray-500 font-medium">Regresar</span></a>
           <div class="flex w-full justify-between">
           <h2 class="text-lg font-medium tracking-tight text-gray-900 p-2 ">Productos</h2>
-          {% for fav in favorites %}
-              {% if request.user == fav.favorite_user and object.pk == fav.favorite_product.pk  %}
-              <a class="mt-4" href="{% url 'FavoriteP' object.pk %}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg></a>
-              
-              {% endif %}
 
-              {% empty %}
-              <a class="mt-4" href="{% url 'FavoriteP' object.pk %}"><svg class="h-5 w-5 text-red-500"  width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" /></svg></a>
+          {% for fav in favorites %}
+              {% if object.pk == fav.favorite_product.pk and request.user == fav.favorite_user  %}
+              <a class="mt-4" href="{% url 'FavoriteP' object.pk %}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg></a>
+              {% endif %} 
+
+             {% empty %}
+             <a class="mt-4" href="{% url 'FavoriteP' object.pk %}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg></a>
           {% endfor %}
         </div>
           <hr>

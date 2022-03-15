@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>Favoritos</title>
+  {% endblock %}
+
+{% block content%}
+
+
+{% for fav in list_favorite %}
+<div class="p-24">
+    {{fav}}
+</div>
+
+{% endfor %}
+
+
+{% endblock %}
