@@ -60,6 +60,7 @@ def DetailProducts(request,pk):
 
 class RecentViewProduct(View):
     def get(self, request, *args, **kwargs):
+        request.session["fav_color"] = "blue"
         user=request.user
         recent=ProductsViewRecentList.objects.filter(recent_user=user,active=True)
         return render(request,'products/recentproducts.html', {'recents': recent})
@@ -68,7 +69,7 @@ class ListCategoryProducts(View):
     '''filter of products category'''
     def get(self, request, *args, **kwargs):
         search = request.GET.get('search',None)
-        print(search    )
+        print(search)
         if search == None:
             data_cate=request.GET.get('cate',None)
             ordering=request.GET.get('ordering',None)
