@@ -20,6 +20,7 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,related_name="order",on_delete=models.CASCADE)
+    complete=models.BooleanField(default=False)
     order_product=models.ForeignKey(Products,related_name="order_products",on_delete=models.CASCADE)
     
     def __str__(self):

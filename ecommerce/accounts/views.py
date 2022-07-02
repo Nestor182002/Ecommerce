@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.shortcuts import redirect, render
-# form
+# # form
 from forms.UserRegisterForm import UserCreateForm
 # loginView
 from django.contrib.auth.views import LoginView

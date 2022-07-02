@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.http import Http404, HttpResponse
+from django.http import Http404
 # views
 from django.shortcuts import redirect, render
 from django.urls import reverse
